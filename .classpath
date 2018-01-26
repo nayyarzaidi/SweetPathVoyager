@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="lib/weka.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/google-collections-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/lbfgsb_wrapper-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/moa-2015.11.jar"/>
+	<classpathentry kind="lib" path="lib/sp2m/jfreechart-1.0.15.jar"/>
+	<classpathentry kind="lib" path="lib/sp2m/jcommon-1.0.18.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.7.jar"/>
+	<classpathentry kind="lib" path="lib/guava-21.0-rc2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
