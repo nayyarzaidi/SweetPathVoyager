@@ -550,7 +550,63 @@ public class Sampler {
 
 		return out;
 	}
-	
+
+	public static File generateSwitchingKDBDrift(int exp, double frequency) throws IOException {
+
+		System.out.println("Generating");
+		SwitchingKDBGeneratorWithDriftBinaryValues stream = new SwitchingKDBGeneratorWithDriftBinaryValues();
+
+		stream.frequency.setValue((int) frequency);
+
+		stream.seed.setValue(3071980 + exp);
+
+		stream.nAttributes.setValue(Globals.getDriftNAttributes());
+		stream.nValuesPerAttribute.setValue(Globals.getDriftNAttributesValues());
+
+		stream.driftLength.setValue(Globals.getTotalNInstancesDuringDrift());
+		stream.dirChangeProb.setValue(0.01);
+
+		stream.prepareForUse();
+
+		System.out.println("Trying to write file at: " + Globals.getTempDirectory());
+		File out = File.createTempFile("trainCV-", ".arff", new File(Globals.getTempDirectory()));
+		System.out.println("Creating File at: " +  out.getAbsolutePath());
+		out.deleteOnExit();
+
+		Writer w = new BufferedWriter(new FileWriter(out));
+
+		String header = "";
+		header += "@relation '" + stream.getHeader().getRelationName() + "'\n\n";
+		for (int i = 0; i < stream.getHeader().numAttributes(); i++) {
+			header += "@attribute x" + i + " { ";
+			for (int j = 0; j < stream.getHeader().attribute(i).numValues(); j++) {
+				if (j == stream.getHeader().attribute(i).numValues() - 1) {
+					//header += stream.getHeader().attribute(i).value(j) + ", ";
+					header += (double) j;
+				} else {
+					header += (double) j + ", ";
+				}
+			}
+			header += " }\n";
+		}
+		header += "\n@data\n\n";
+
+		w.write(header);
+
+		int numWritten = 0;
+		int numData = Globals.getTotalNInstancesBeforeDrift() + Globals.getTotalNInstancesDuringDrift() + Globals.getTotalNInstancesAfterDrift();
+		while ((numWritten < numData) && stream.hasMoreInstances()) {
+			w.write(stream.nextInstance().instance.toString());
+			w.write("\n");
+			numWritten++;
+		}
+		w.close();
+
+		System.out.println("Stream written to ARFF file " + out);
+
+		return out;
+	}
+
 	public static File generateSimpleDrift(int exp, double frequency) throws IOException {
 
 		/* Simple (Geoff) */

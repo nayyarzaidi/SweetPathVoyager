@@ -227,7 +227,12 @@ public class evaluationDrift {
 					} else if (Globals.getDriftType().equalsIgnoreCase("simplestKDB")) {
 
 						System.out.println("Calling KDB (K=2) Drift generator");
-						sourceFile = Sampler.generateKDBDrift(exp, 0.0);		
+						sourceFile = Sampler.generateKDBDrift(exp, 0.0);
+
+					} else if (Globals.getDriftType().equalsIgnoreCase("switchingKDB")) {
+
+						System.out.println("Calling Drift Switching KDB (K=2) Drift generator");
+						sourceFile = Sampler.generateSwitchingKDBDrift(exp, 0.0);
 
 					} else if (Globals.getDriftType().equalsIgnoreCase("noDrift")) {
 
